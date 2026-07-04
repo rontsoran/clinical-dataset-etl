@@ -12,6 +12,14 @@ You pick a file, the app does the rest: load → filter → infer types → crea
 
 ---
 
+## Screenshot
+
+![Clinical Dataset Import & Analytics — mid-import, showing the column-filtering log](./docs/screenshot.png)
+
+*Live capture: importing a 55,500-row healthcare dataset. The log shows the deterministic filter dropping `Name`, `Doctor`, and `Hospital` as near-unique identifiers, and `Insurance_Provider`, `Billing_Amount`, `Room_Number` as financial/administrative fields — reducing 15 columns to 9 clinically relevant ones.*
+
+---
+
 ## Features
 
 - **Manual, upload-triggered import** — click **📥 Import Clinical Dataset**, pick any `.csv`, `.xlsx`, or `.xls` file via a native file dialog
@@ -177,13 +185,33 @@ Don't have a dataset handy? See [Try it with any dataset](#try-it-with-any-datas
 
 ---
 
+## Testing
+
+The column-filtering and type-inference logic (`classify_column`, `filter_clinical_columns`, `_clean_and_infer`, `_to_db_value`, `build_missing_value_report`) is covered by a `pytest` suite. These are pure functions — the tests need **no MySQL server and no `config.py`** (a `conftest.py` stubs the config module before import).
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/ -v
+```
+
+32 tests, covering keyword-based filtering per non-clinical category, missing-value and near-unique-text thresholds, numeric columns being exempt from the uniqueness rule, and every branch of the MySQL type inference (BIGINT, DOUBLE, BOOLEAN, DATETIME, VARCHAR, TEXT).
+
+---
+
 ## Project structure
 
 ```
 clinical-dataset-etl/
 ├── main.py                   # Entire application: ETL, analytics, visualization, GUI
 ├── config.py                 # MySQL credentials (git-ignored, create it yourself)
-├── requirements.txt          # Python dependencies
+├── requirements.txt          # Runtime dependencies
+├── requirements-dev.txt      # + pytest, for running the test suite
+├── tests/
+│   ├── conftest.py           # Stubs the config module so tests need no MySQL/config.py
+│   └── test_column_filtering.py
+├── docs/
+│   └── screenshot.png
+├── LICENSE
 ├── .gitignore
 ├── README.md
 ├── <dataset>_analytics_report.txt   # Generated per imported dataset
@@ -209,4 +237,4 @@ clinical-dataset-etl/
 
 ## License
 
-No license specified. All rights reserved by the repository owner unless otherwise stated.
+MIT — see [LICENSE](./LICENSE).
