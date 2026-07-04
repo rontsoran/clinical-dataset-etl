@@ -10,9 +10,11 @@ config.py
 visualizations/
 
 # User-provided input files and generated exports (CSV/Excel) — not tracked, can be
-# large and are not source code. There is no bundled sample file: the import is
-# manually triggered via a file dialog, and every input (the file you upload) and
-# output (<dataset_name>_export.xlsx) is covered by these blanket rules.
+# large and are not source code. The import is manually triggered via a file dialog,
+# and every input (the file you upload) and output (<dataset_name>_export.xlsx) is
+# covered by these blanket rules. examples/*.csv is the one tracked exception, kept
+# so the tool is runnable out of the box with a real sample dataset.
 *.csv
 *.xlsx
 *.xls
+!examples/*.csv

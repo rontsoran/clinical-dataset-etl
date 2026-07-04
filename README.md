@@ -159,7 +159,9 @@ Each dataset also gets its own table (named after the sanitized file name) with 
 python main.py
 ```
 
-Click **📥 Import Clinical Dataset**, pick a CSV or Excel file, and watch the activity log.
+Click **📥 Import Clinical Dataset** and pick a CSV or Excel file, then watch the activity log.
+
+A ready-to-use sample is included at `examples/Healthcare_dataset.csv` (a public, synthetic healthcare dataset — no real patient data) if you want to try the tool immediately without supplying your own file.
 
 ---
 
@@ -172,6 +174,8 @@ clinical-dataset-etl/
 ├── requirements.txt          # Python dependencies
 ├── .gitignore
 ├── README.md
+├── examples/
+│   └── Healthcare_dataset.csv       # Bundled sample dataset (synthetic, public)
 ├── <dataset>_analytics_report.txt   # Generated per imported dataset
 ├── <dataset>_export.xlsx            # Generated on demand via Export to Excel
 └── visualizations/
