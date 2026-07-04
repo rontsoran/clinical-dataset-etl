@@ -126,15 +126,15 @@ Each dataset also gets its own table (named after the sanitized file name) with 
 
 ---
 
-## Try it with sample data
+## Try it with any dataset
 
-This repo doesn't bundle a dataset (keeps the repo small and avoids any data-licensing ambiguity). To try the tool immediately:
+The importer works with **any** CSV or Excel file — there's no dependency on a specific dataset or schema. Point it at your own data, an export from another system, or any public dataset.
 
-1. Download a free sample dataset from Kaggle, e.g. [Hospital Deterioration Dataset](https://www.kaggle.com/datasets/tarekmasryo/hospital-deterioration-dataset) (requires a free Kaggle account).
+This repo doesn't bundle sample data (keeps the repo small and avoids data-licensing ambiguity). If you don't have a file handy, here's one example you can grab in under a minute:
+
+1. Download a free dataset from Kaggle — e.g. [Hospital Deterioration Dataset](https://www.kaggle.com/datasets/tarekmasryo/hospital-deterioration-dataset) (requires a free Kaggle account) — but honestly, any CSV/Excel file you already have works just as well.
 2. Extract the downloaded `.zip` — you'll get one or more `.csv` files.
-3. Run the app (see [Running](#running) below) and click **📥 Import Clinical Dataset**, then select the extracted CSV.
-
-Any CSV/Excel file works — Kaggle has many similar healthcare datasets if you want to try a different one.
+3. Run the app (see [Running](#running) below), click **📥 Import Clinical Dataset**, and select the file.
 
 ---
 
@@ -173,7 +173,7 @@ python main.py
 
 Click **📥 Import Clinical Dataset** and pick a CSV or Excel file, then watch the activity log.
 
-Don't have a dataset handy? See [Try it with sample data](#try-it-with-sample-data) below.
+Don't have a dataset handy? See [Try it with any dataset](#try-it-with-any-dataset) below.
 
 ---
 
