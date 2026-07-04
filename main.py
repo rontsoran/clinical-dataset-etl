@@ -39,6 +39,7 @@ import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox, filedialog
 
 import pandas as pd
+from matplotlib import colormaps
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -471,7 +472,9 @@ def generate_visualizations(dataset_name: str, df: pd.DataFrame, numeric_cols: l
             continue
         fig = Figure(figsize=(7, 4.5), dpi=100)
         ax = fig.add_subplot(111)
-        ax.bar(counts.index.astype(str), counts.values, color="#00d8a0")
+        palette = colormaps["tab20"].colors
+        bar_colors = [palette[i % len(palette)] for i in range(len(counts))]
+        ax.bar(counts.index.astype(str), counts.values, color=bar_colors)
         ax.set_title(f"{col} — Distribution")
         ax.set_ylabel("Count")
         ax.tick_params(axis="x", rotation=45)
