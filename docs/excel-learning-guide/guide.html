@@ -265,7 +265,7 @@
   </table>
   </div>
   <p>דוגמה רלוונטית לתפקיד: <code>=COUNTBLANK(B2:B500)</code> בעמודת "מספר פוליסה" מגלה מיד כמה רשומות חסרות מזהה.</p>
-  <div class="practice"><strong>תרגול:</strong> גיליון <code>02_נוסחאות_בסיסיות</code> — חשבו סה"כ פרמיה, ממוצע פרמיה לפי סוג פוליסה, וספרו רשומות עם שדה חסר.</div>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>02_נוסחאות_בסיסיות</code> — חשבו סה"כ פרמיה, ממוצע פרמיה לפי סוג מוצר, וספרו רשומות עם שדה חסר.</div>
 </section>
 
 <section id="ch3">
@@ -291,7 +291,7 @@
   <pre><code>=XLOOKUP(lookup_value, lookup_array, return_array, "לא נמצא")</code></pre>
   <p>הגרסה המודרנית — כוללת טיפול מובנה במקרה "לא נמצא".</p>
   <div class="callout">שימוש טיפוסי בתפקיד: עמודת "האם קוד המוצר קיים בטבלת המוצרים הרשמית?" — כל <code>#N/A</code> הוא רשומה שנופלת ודורשת בדיקה.</div>
-  <div class="practice"><strong>תרגול:</strong> גיליון <code>04_VLOOKUP</code> — טבלת תביעות מול טבלת "קודי מוצר" רשמית. המשימה: להצליב, לזהות קודים לא קיימים ולמשוך שם סוכן.</div>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>04_VLOOKUP</code> — טבלת פוליסות מול טבלת "קודי מוצר" רשמית. המשימה: להצליב, לזהות קודים לא קיימים ולמשוך שם סוכן לפי קוד סוכן.</div>
 </section>
 
 <section id="ch5">
@@ -335,8 +335,10 @@
     <tr><td>טווח תאריך הגיוני</td><td><code>=IF(OR(B2&lt;DATE(2015,1,1),B2&gt;TODAY()),"חריג","תקין")</code></td></tr>
     <tr><td>ערך מספרי שלילי</td><td><code>=IF(C2&lt;0,"שלילי","תקין")</code></td></tr>
     <tr><td>קיום בטבלת ייחוס</td><td><code>=IFERROR(VLOOKUP(D2,ProductTable,1,FALSE),"לא נמצא")</code></td></tr>
+    <tr><td>סיכום כולל (שער קבילות)</td><td><code>=IF(OR(E2="חסר",F2="כפול",G2="חריג",H2="שלילי"),"נדחה","קביל")</code></td></tr>
   </table>
   </div>
+  <p>הרעיון: משלבים את תוצאות כל הבדיקות הקודמות בתנאי <code>OR</code> אחד, שמחזיר החלטה סופית אחת וברורה.</p>
   <div class="practice"><strong>תרגול:</strong> גיליון <code>07_Data_Quality</code> — בנו "עמודת שער" (Gate Column) אחת שמסכמת אם רשומה "קבילה" או "נדחית".</div>
 </section>
 
@@ -349,6 +351,7 @@
     <li>כל שלב נשמר כ-"Applied Step" — שקוף וניתן לתיקון, בניגוד לנוסחה חד-פעמית.</li>
     <li>אם מכירים Python/SQL — Power Query הוא ה"שפה החזותית" המקבילה לעיבוד נתונים, ושווה להזכיר בראיון.</li>
   </ul>
+  <div class="practice"><strong>תרגול (אופציונלי, לרמה מתקדמת יותר):</strong> גיליון <code>08_Power_Query</code> — הנחיות שלב-אחר-שלב איך לייבא ולנקות את נתוני <code>03_ניקוי_נתונים</code> דרך Power Query במקום נוסחאות ידניות.</div>
 </section>
 
 <section id="ch9">
