@@ -207,6 +207,7 @@
     <li><a href="#ch8">פרק 8 — Power Query</a></li>
     <li><a href="#ch9">פרק 9 — מאקרו / VBA בסיסי</a></li>
     <li><a href="#ch10">פרק 10 — הכנה לראיון</a></li>
+    <li><a href="#cheatsheet">עלון סיכום מהיר (Cheat Sheet)</a></li>
     <li><a href="#plan">תוכנית לימוד מוצעת</a></li>
   </ol>
 </nav>
@@ -245,7 +246,7 @@
     <li><strong>קיצורים חיוניים</strong>: <code>Ctrl+C/V</code>, <code>Ctrl+Z</code>, <code>Ctrl+;</code> (תאריך היום), <code>Ctrl+Shift+L</code> (סינון), <code>F2</code> (עריכת תא), <code>Ctrl+Arrow</code> (קפיצה לסוף טווח), <code>Alt+=</code> (סכימה אוטומטית).</li>
     <li><strong>הפניות יחסיות מול מוחלטות</strong>: <code>A1</code> (יחסי) מול <code>$A$1</code> (מוחלט). קריטי בכל נוסחה שגוררים בין שורות.</li>
   </ul>
-  <div class="practice"><strong>תרגול:</strong> גיליון <code>01_יסודות</code> — מלאו נתונים בסיסיים, פרמטו עמודת תאריך ואחוז נכון, ותרגלו הפניה מוחלטת בנוסחת הכפלה באחוז קבוע.</div>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>01_יסודות</code> — מלאו נתונים בסיסיים, פרמטו עמודת תאריך ואחוז נכון, תרגלו הפניה מוחלטת בנוסחת הכפלה באחוז קבוע, ובנוסף תרגלו יצירת רשימה נפתחת (Data Validation) בעצמכם.</div>
 </section>
 
 <section id="ch2">
@@ -344,7 +345,7 @@
 
 <section id="ch8">
   <h2>פרק 8 — Power Query (בסיס ETL באקסל)</h2>
-  <p>Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) בתוך Excel — רלוונטי מאוד לשם התפקיד.</p>
+  <p>Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) בתוך Excel — רלוונטי מאוד לשם התפקיד עצמו (Data <em>Acceptance</em>), שבו קבצים נכנסים צריכים לעבור תהליך קליטה, ניקוי וטעינה חוזר-ונשנה.</p>
   <ul>
     <li>נמצא ב-Data → Get Data / From Table-Range.</li>
     <li>מאפשר: ניקוי עמודות, שינוי סוגי נתונים, מיזוג (Merge) שני מקורות, חיבור (Append) קבצים, טעינה חוזרת אוטומטית.</li>
@@ -373,7 +374,83 @@
     <li>"מה זה Power Query ולמה הוא עדיף על נוסחאות בתהליך חוזר?" → תיעוד שלבים, ריענון קל, פחות שגיאות ידניות.</li>
     <li>"איך היית מוודא שמספר פוליסה תקין?" → Data Validation + נוסחת בדיקת אורך/תבנית (<code>LEN</code>, <code>ISNUMBER</code>, <code>COUNTIF</code>).</li>
   </ol>
-  <p><strong>מונחים כדאי להכיר:</strong> Data Validation, Reconciliation, Data Quality Gate, Deduplication, Source of Truth, Exception Report, Refresh/ETL.</p>
+  <h3>מילון מונחים לראיון</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>מונח</th><th>הסבר קצר</th></tr>
+    <tr><td>Data Validation</td><td>הגבלת הקלט המותר בתא (למשל רק מספרים, רק תאריך, או רשימה סגורה) — מונע טעויות כבר בזמן ההקלדה</td></tr>
+    <tr><td>Reconciliation</td><td>הצלבה/התאמה בין שני מקורות נתונים כדי לוודא שהם תואמים</td></tr>
+    <tr><td>Data Quality Gate</td><td>"שער" שדרכו רשומה חייבת לעבור את כל בדיקות התקינות לפני שהיא מאושרת להמשך תהליך</td></tr>
+    <tr><td>Deduplication</td><td>זיהוי והסרה/סימון של רשומות כפולות באותו סט נתונים</td></tr>
+    <tr><td>Source of Truth</td><td>המקור הרשמי והמהימן שכל שאר הנתונים נבדקים מולו</td></tr>
+    <tr><td>Exception Report</td><td>דוח שמרכז רק את הרשומות החריגות/שנדחו, לצורך טיפול ידני</td></tr>
+    <tr><td>Refresh / ETL</td><td>Extract-Transform-Load — שליפה, עיבוד וטעינה; ב-Excel מיוצג ע"י Power Query</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="cheatsheet">
+  <h2>עלון סיכום מהיר (Cheat Sheet)</h2>
+  <p>טבלה מרוכזת לחזרה מהירה — למשל ממש לפני הראיון.</p>
+
+  <h3>סיכום וספירה</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>תחביר</th></tr>
+    <tr><td>סכום</td><td><code>=SUM(range)</code></td></tr>
+    <tr><td>ממוצע</td><td><code>=AVERAGE(range)</code></td></tr>
+    <tr><td>ספירת מספרים</td><td><code>=COUNT(range)</code></td></tr>
+    <tr><td>ספירת לא-ריקים</td><td><code>=COUNTA(range)</code></td></tr>
+    <tr><td>ספירת ריקים</td><td><code>=COUNTBLANK(range)</code></td></tr>
+    <tr><td>ספירה מותנית</td><td><code>=COUNTIF(range,criteria)</code> / <code>=COUNTIFS(...)</code></td></tr>
+    <tr><td>סכימה מותנית</td><td><code>=SUMIF(range,criteria,sum_range)</code> / <code>=SUMIFS(...)</code></td></tr>
+  </table>
+  </div>
+
+  <h3>תנאים ובדיקות שגיאה</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>תחביר</th></tr>
+    <tr><td>תנאי</td><td><code>=IF(condition,value_if_true,value_if_false)</code></td></tr>
+    <tr><td>טיפול בשגיאה</td><td><code>=IFERROR(formula,value_if_error)</code></td></tr>
+    <tr><td>"או" / "וגם"</td><td><code>=OR(cond1,cond2,...)</code> / <code>=AND(cond1,cond2,...)</code></td></tr>
+  </table>
+  </div>
+
+  <h3>חיפוש והצלבה (הליבה של Acceptance)</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>תחביר</th></tr>
+    <tr><td>VLOOKUP</td><td><code>=VLOOKUP(lookup_value,table_array,col_index_num,FALSE)</code></td></tr>
+    <tr><td>INDEX/MATCH</td><td><code>=INDEX(return_range,MATCH(lookup_value,lookup_range,0))</code></td></tr>
+    <tr><td>XLOOKUP</td><td><code>=XLOOKUP(lookup_value,lookup_array,return_array,"לא נמצא")</code></td></tr>
+  </table>
+  </div>
+
+  <h3>טקסט וניקוי נתונים</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>תחביר</th></tr>
+    <tr><td>הסרת רווחים</td><td><code>=TRIM(text)</code></td></tr>
+    <tr><td>הסרת תווים לא מודפסים</td><td><code>=CLEAN(text)</code></td></tr>
+    <tr><td>אחידות אותיות</td><td><code>=UPPER(text)</code> / <code>=LOWER(text)</code> / <code>=PROPER(text)</code></td></tr>
+    <tr><td>חיתוך מחרוזת</td><td><code>=LEFT(text,n)</code> / <code>=RIGHT(text,n)</code> / <code>=MID(text,start,n)</code></td></tr>
+    <tr><td>חיבור מחרוזות</td><td><code>=a&amp;b</code> או <code>=CONCATENATE(a,b)</code></td></tr>
+    <tr><td>המרה לטקסט מפורמט</td><td><code>=TEXT(value,format)</code></td></tr>
+  </table>
+  </div>
+
+  <h3>תאריכים</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>תחביר</th></tr>
+    <tr><td>תאריך היום</td><td><code>=TODAY()</code></td></tr>
+    <tr><td>בניית תאריך</td><td><code>=DATE(year,month,day)</code></td></tr>
+    <tr><td>בדיקת טווח</td><td><code>=IF(OR(date&lt;DATE(2015,1,1),date&gt;TODAY()),"חריג","תקין")</code></td></tr>
+  </table>
+  </div>
+
+  <div class="callout"><strong>חמשת הכללים שהכי נבדקים בראיון:</strong> COUNTBLANK לשדות חסרים, COUNTIF לכפילויות, VLOOKUP/XLOOKUP מול טבלת ייחוס, Conditional Formatting מבוסס-נוסחה לסימון חריגות, ו-PivotTable לסיכום/דיווח.</div>
 </section>
 
 <section id="plan">

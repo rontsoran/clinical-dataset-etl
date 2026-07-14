@@ -39,7 +39,7 @@
 - **קיצורים חיוניים**: `Ctrl+C/V`, `Ctrl+Z`, `Ctrl+;` (הכנסת תאריך היום), `Ctrl+Shift+L` (הפעלת סינון), `F2` (עריכת תא), `Ctrl+Arrow` (קפיצה לסוף טווח נתונים), `Alt+=` (סכימה אוטומטית).
 - **הפניות יחסיות מול מוחלטות**: `A1` (יחסי — משתנה כשגוררים) מול `$A$1` (מוחלט — קבוע). קריטי בכל נוסחה שגוררים בין שורות.
 
-**תרגול**: גיליון `01_יסודות` — מלאו נתונים בסיסיים, פרמטו עמודת תאריך ועמודת אחוז נכון, ותרגלו הפניה מוחלטת בנוסחת הכפלה באחוז קבוע.
+**תרגול**: גיליון `01_יסודות` — מלאו נתונים בסיסיים, פרמטו עמודת תאריך ועמודת אחוז נכון, תרגלו הפניה מוחלטת בנוסחת הכפלה באחוז קבוע, ובנוסף תרגלו יצירת רשימה נפתחת (Data Validation) בעצמכם.
 
 ---
 
@@ -155,7 +155,7 @@
 
 ## פרק 8 — Power Query (בסיס ETL באקסל)
 
-Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) בתוך Excel — רלוונטי מאוד לשם התפקיד ולריפו שבו נמצא המדריך הזה.
+Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) בתוך Excel — רלוונטי מאוד לשם התפקיד עצמו (Data *Acceptance*), שבו קבצים נכנסים צריכים לעבור תהליך קליטה, ניקוי וטעינה חוזר-ונשנה.
 
 - נמצא ב-Data → Get Data / From Table-Range.
 - מאפשר: ניקוי עמודות, שינוי סוגי נתונים, מיזוג (Merge) שני מקורות (כמו VLOOKUP אבל חזק וניתן לתיעוד/חזרה), חיבור (Append) קבצים דומים אחד לשני, וטעינה חוזרת אוטומטית כשמרעננים.
@@ -183,7 +183,72 @@ Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) ב�
 4. "מה זה Power Query ולמה הוא עדיף על נוסחאות בתהליך חוזר?" → תיעוד שלבים, ריענון קל, פחות שגיאות ידניות.
 5. "איך היית מוודא שמספר פוליסה תקין?" → שילוב Data Validation + נוסחת בדיקת אורך/תבנית (`LEN`, `ISNUMBER`, `COUNTIF`).
 
-**מונחים כדאי להכיר**: Data Validation, Reconciliation, Data Quality Gate, Deduplication, Source of Truth, Exception Report, Refresh/ETL.
+**מילון מונחים לראיון:**
+
+| מונח | הסבר קצר |
+|---|---|
+| Data Validation | הגבלת הקלט המותר בתא (למשל רק מספרים, רק תאריך, או רשימה סגורה) — מונע טעויות כבר בזמן ההקלדה |
+| Reconciliation | הצלבה/התאמה בין שני מקורות נתונים (למשל קובץ נכנס מול טבלת ייחוס) כדי לוודא שהם תואמים |
+| Data Quality Gate | "שער" שדרכו רשומה חייבת לעבור את כל בדיקות התקינות לפני שהיא מאושרת להמשך תהליך |
+| Deduplication | זיהוי והסרה/סימון של רשומות כפולות באותו סט נתונים |
+| Source of Truth | המקור הרשמי והמהימן שכל שאר הנתונים נבדקים מולו (למשל טבלת מוצרים רשמית) |
+| Exception Report | דוח שמרכז רק את הרשומות החריגות/שנדחו, לצורך טיפול ידני |
+| Refresh / ETL | Extract-Transform-Load — שליפת נתונים, עיבוד/ניקוי, וטעינה ליעד; ב-Excel זה מיוצג ע"י Power Query |
+
+---
+
+## עלון סיכום מהיר (Cheat Sheet) — כל הנוסחאות במקום אחד
+
+טבלה מרוכזת לחזרה מהירה, למשל ממש לפני הראיון.
+
+**סיכום וספירה**
+
+| נוסחה | תחביר |
+|---|---|
+| סכום | `=SUM(range)` |
+| ממוצע | `=AVERAGE(range)` |
+| ספירת מספרים | `=COUNT(range)` |
+| ספירת לא-ריקים | `=COUNTA(range)` |
+| ספירת ריקים | `=COUNTBLANK(range)` |
+| ספירה מותנית | `=COUNTIF(range, criteria)` / `=COUNTIFS(range1, crit1, range2, crit2, ...)` |
+| סכימה מותנית | `=SUMIF(range, criteria, sum_range)` / `=SUMIFS(...)` |
+
+**תנאים ובדיקות שגיאה**
+
+| נוסחה | תחביר |
+|---|---|
+| תנאי | `=IF(condition, value_if_true, value_if_false)` |
+| טיפול בשגיאה | `=IFERROR(formula, value_if_error)` |
+| "או" / "וגם" | `=OR(cond1, cond2, ...)` / `=AND(cond1, cond2, ...)` |
+
+**חיפוש והצלבה (הליבה של Acceptance)**
+
+| נוסחה | תחביר |
+|---|---|
+| VLOOKUP | `=VLOOKUP(lookup_value, table_array, col_index_num, FALSE)` |
+| INDEX/MATCH | `=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))` |
+| XLOOKUP | `=XLOOKUP(lookup_value, lookup_array, return_array, "לא נמצא")` |
+
+**טקסט וניקוי נתונים**
+
+| נוסחה | תחביר |
+|---|---|
+| הסרת רווחים | `=TRIM(text)` |
+| הסרת תווים לא מודפסים | `=CLEAN(text)` |
+| אחידות אותיות | `=UPPER(text)` / `=LOWER(text)` / `=PROPER(text)` |
+| חיתוך מחרוזת | `=LEFT(text,n)` / `=RIGHT(text,n)` / `=MID(text,start,n)` |
+| חיבור מחרוזות | `=a&b` או `=CONCATENATE(a,b)` |
+| המרה לטקסט מפורמט | `=TEXT(value, format)` |
+
+**תאריכים**
+
+| נוסחה | תחביר |
+|---|---|
+| תאריך היום | `=TODAY()` |
+| בניית תאריך | `=DATE(year, month, day)` |
+| בדיקת טווח | `=IF(OR(date<DATE(2015,1,1), date>TODAY()), "חריג", "תקין")` |
+
+**חמשת הכללים שהכי נבדקים בראיון:** COUNTBLANK לשדות חסרים, COUNTIF לכפילויות, VLOOKUP/XLOOKUP מול טבלת ייחוס, Conditional Formatting מבוסס-נוסחה לסימון חריגות, ו-Pivot Table לסיכום/דיווח.
 
 ---
 
