@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מדריך Excel — הכנה למשרת Data Acceptance Engineer</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --text: #1a1d23;
+    --muted: #5b6270;
+    --accent: #1f4e78;
+    --accent-soft: #eaf1f8;
+    --border: #e2e5ea;
+    --code-bg: #f0f2f5;
+    --warn-bg: #fff8e1;
+    --warn-border: #f0d98c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a;
+      --surface: #1c1f26;
+      --text: #e8eaed;
+      --muted: #a0a6b1;
+      --accent: #6fa8dc;
+      --accent-soft: #223142;
+      --border: #2c313a;
+      --code-bg: #262b33;
+      --warn-bg: #3a3320;
+      --warn-border: #6b5b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161a; --surface: #1c1f26; --text: #e8eaed; --muted: #a0a6b1;
+    --accent: #6fa8dc; --accent-soft: #223142; --border: #2c313a;
+    --code-bg: #262b33; --warn-bg: #3a3320; --warn-border: #6b5b25;
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f8fa; --surface: #ffffff; --text: #1a1d23; --muted: #5b6270;
+    --accent: #1f4e78; --accent-soft: #eaf1f8; --border: #e2e5ea;
+    --code-bg: #f0f2f5; --warn-bg: #fff8e1; --warn-border: #f0d98c;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", "Heebo", "Arial Hebrew", Arial, sans-serif;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 18px 80px;
+  }
+  header.hero {
+    background: linear-gradient(135deg, var(--accent) 0%, #2f6a99 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 28px 22px;
+    margin-bottom: 24px;
+  }
+  header.hero h1 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  header.hero p {
+    margin: 0;
+    color: #eaf1f8;
+    font-size: 0.98rem;
+  }
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 28px;
+  }
+  nav.toc h2 {
+    font-size: 1rem;
+    margin: 0 0 10px;
+    color: var(--muted);
+    text-transform: none;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-inline-start: 22px;
+    columns: 1;
+  }
+  nav.toc li { margin-bottom: 4px; }
+  nav.toc a { color: var(--accent); text-decoration: none; font-size: 0.95rem; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    scroll-margin-top: 12px;
+  }
+  h2 {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-top: 0;
+    border-bottom: 2px solid var(--accent-soft);
+    padding-bottom: 8px;
+  }
+  h3 { color: var(--accent); font-size: 1.05rem; }
+  p { margin: 10px 0; }
+  ul, ol { padding-inline-start: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--text); }
+  code {
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.88em;
+    direction: ltr;
+    unicode-bidi: embed;
+    display: inline-block;
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+    font-family: "SF Mono", Consolas, Menlo, monospace;
+    font-size: 0.88rem;
+  }
+  pre code { background: none; padding: 0; }
+  .practice {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+  .practice strong { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: right;
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  td code, th code { direction: ltr; }
+  .callout {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 30px;
+  }
+  .back-top {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero" id="top">
+  <h1>מדריך למידת Excel<br>הכנה למשרת Data Acceptance Engineer (כלל)</h1>
+  <p>מדריך מובנה שלב-אחר-שלב, מיועד לקריאה נוחה מהטלפון. קובץ התרגול <code>practice_workbook.xlsx</code> נמצא באותה תיקייה בריפו.</p>
+</header>
+
+<nav class="toc">
+  <h2>תוכן העניינים</h2>
+  <ol>
+    <li><a href="#role">על התפקיד: מה זה Data Acceptance Engineer?</a></li>
+    <li><a href="#howto">איך להשתמש במדריך</a></li>
+    <li><a href="#ch1">פרק 1 — יסודות</a></li>
+    <li><a href="#ch2">פרק 2 — נוסחאות בסיסיות</a></li>
+    <li><a href="#ch3">פרק 3 — מיון, סינון וניקוי נתונים</a></li>
+    <li><a href="#ch4">פרק 4 — VLOOKUP / INDEX-MATCH / XLOOKUP</a></li>
+    <li><a href="#ch5">פרק 5 — PivotTables</a></li>
+    <li><a href="#ch6">פרק 6 — Conditional Formatting</a></li>
+    <li><a href="#ch7">פרק 7 — בדיקות תקינות מתקדמות</a></li>
+    <li><a href="#ch8">פרק 8 — Power Query</a></li>
+    <li><a href="#ch9">פרק 9 — מאקרו / VBA בסיסי</a></li>
+    <li><a href="#ch10">פרק 10 — הכנה לראיון</a></li>
+    <li><a href="#plan">תוכנית לימוד מוצעת</a></li>
+  </ol>
+</nav>
+
+<section id="role">
+  <h2>על התפקיד: מה זה Data Acceptance Engineer?</h2>
+  <p>תפקיד ה-Data Acceptance (לפעמים נקרא גם Data Onboarding / Data Quality / Data Intake) עוסק ב:</p>
+  <ul>
+    <li><strong>קליטת קבצי נתונים</strong> ממקורות שונים (ספקים, סוכנויות, מערכות פנימיות) — לרוב בפורמט Excel/CSV.</li>
+    <li><strong>בדיקת תקינות (Validation)</strong>: ערכים חסרים, כפילויות, פורמטים שגויים, ת"ז/מספרי פוליסה לא תקינים, טווחי תאריכים הגיוניים.</li>
+    <li><strong>התאמה/הצלבה (Reconciliation)</strong>: להשוות בין קובץ שהתקבל לבין מקור אמת (למשל טבלת מוצרים, טבלת סוכנים) — כאן <code>VLOOKUP</code>/<code>INDEX-MATCH</code> הם הכלי המרכזי.</li>
+    <li><strong>סיכום ודיווח</strong>: כמה רשומות התקבלו, כמה נדחו ולמה, פילוח לפי סוכן/מוצר/תאריך — כאן נכנסות <strong>PivotTables</strong>.</li>
+    <li><strong>תיעוד חריגות</strong>: סימון ויזואלי (Conditional Formatting) של שורות בעייתיות לפני שהן עוברות הלאה בתהליך.</li>
+    <li>לעיתים גם <strong>אוטומציה</strong> של תהליך הקליטה החוזר (Power Query / מאקרו VBA בסיסי).</li>
+  </ul>
+  <p>המסקנה: אקסל בתפקיד הזה הוא לא "עוד כלי נחמד" — הוא כלי העבודה המרכזי. המדריך בנוי בדיוק סביב היכולות האלה.</p>
+</section>
+
+<section id="howto">
+  <h2>איך להשתמש במדריך</h2>
+  <ol>
+    <li>עברו על הפרקים לפי הסדר — כל פרק בונה על הקודם.</li>
+    <li>בסוף כל פרק יש <strong>תרגול</strong> — פתחו את <code>practice_workbook.xlsx</code> ובצעו את המשימה בגיליון המתאים.</li>
+    <li>אם נתקעתם, בגיליון <code>פתרונות</code> בקובץ התרגול יש נוסחאות פתרון עם הסבר קצר.</li>
+    <li>יעד זמן מוצע: פרק ליום/יומיים, כ-2-3 שבועות עד רמה טובה לראיון.</li>
+  </ol>
+</section>
+
+<section id="ch1">
+  <h2>פרק 1 — יסודות: הממשק והמושגים הבסיסיים</h2>
+  <ul>
+    <li><strong>Workbook / Worksheet</strong>: קובץ = Workbook, ובתוכו כמה גיליונות (Worksheets/Tabs) בתחתית המסך.</li>
+    <li><strong>תא (Cell)</strong>: כתובת לפי עמודה+שורה, למשל <code>B3</code>. שורת הנוסחאות (Formula Bar) מעל הגיליון מציגה את התוכן האמיתי של התא.</li>
+    <li><strong>טווח (Range)</strong>: קבוצת תאים, למשל <code>A1:A10</code>.</li>
+    <li><strong>סוגי נתונים</strong>: מספר, טקסט, תאריך, אחוז, מטבע — הפורמט של התא (Ctrl+1 → Format Cells) לא משנה את הערך, רק איך הוא מוצג.</li>
+    <li><strong>קיצורים חיוניים</strong>: <code>Ctrl+C/V</code>, <code>Ctrl+Z</code>, <code>Ctrl+;</code> (תאריך היום), <code>Ctrl+Shift+L</code> (סינון), <code>F2</code> (עריכת תא), <code>Ctrl+Arrow</code> (קפיצה לסוף טווח), <code>Alt+=</code> (סכימה אוטומטית).</li>
+    <li><strong>הפניות יחסיות מול מוחלטות</strong>: <code>A1</code> (יחסי) מול <code>$A$1</code> (מוחלט). קריטי בכל נוסחה שגוררים בין שורות.</li>
+  </ul>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>01_יסודות</code> — מלאו נתונים בסיסיים, פרמטו עמודת תאריך ואחוז נכון, ותרגלו הפניה מוחלטת בנוסחת הכפלה באחוז קבוע.</div>
+</section>
+
+<section id="ch2">
+  <h2>פרק 2 — נוסחאות בסיסיות</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>נוסחה</th><th>שימוש</th></tr>
+    <tr><td><code>=SUM(range)</code></td><td>סכימה</td></tr>
+    <tr><td><code>=AVERAGE(range)</code></td><td>ממוצע</td></tr>
+    <tr><td><code>=COUNT(range)</code></td><td>ספירת תאים עם מספרים</td></tr>
+    <tr><td><code>=COUNTA(range)</code></td><td>ספירת תאים לא ריקים</td></tr>
+    <tr><td><code>=COUNTBLANK(range)</code></td><td>ספירת תאים ריקים — קריטי לבדיקת שדות חסרים</td></tr>
+    <tr><td><code>=IF(cond, a, b)</code></td><td>תנאי בסיסי</td></tr>
+    <tr><td><code>=COUNTIF(range, criteria)</code></td><td>ספירה לפי תנאי</td></tr>
+    <tr><td><code>=SUMIF(range, criteria, sum_range)</code></td><td>סכימה לפי תנאי</td></tr>
+    <tr><td><code>=COUNTIFS(...)</code> / <code>=SUMIFS(...)</code></td><td>כמה תנאים במקביל</td></tr>
+  </table>
+  </div>
+  <p>דוגמה רלוונטית לתפקיד: <code>=COUNTBLANK(B2:B500)</code> בעמודת "מספר פוליסה" מגלה מיד כמה רשומות חסרות מזהה.</p>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>02_נוסחאות_בסיסיות</code> — חשבו סה"כ פרמיה, ממוצע פרמיה לפי סוג פוליסה, וספרו רשומות עם שדה חסר.</div>
+</section>
+
+<section id="ch3">
+  <h2>פרק 3 — עבודה עם נתונים: מיון, סינון, ניקוי</h2>
+  <ul>
+    <li><strong>מיון (Sort)</strong>: לפי עמודה אחת או כמה עמודות (Data → Sort).</li>
+    <li><strong>סינון (Filter)</strong>: <code>Ctrl+Shift+L</code> להפעלת חצי סינון בכותרות.</li>
+    <li><strong>הסרת כפילויות</strong>: Data → Remove Duplicates — אבל <strong>תמיד</strong> קודם לבדוק/לסמן, לא רק למחוק בעיוורון.</li>
+    <li><strong>Text to Columns</strong>: לפיצול עמודה (למשל "שם מלא" ל"שם פרטי"+"משפחה").</li>
+    <li><strong>ניקוי טקסט</strong>: <code>=TRIM()</code>, <code>=CLEAN()</code>, <code>=UPPER/LOWER/PROPER()</code>, <code>=LEFT/RIGHT/MID()</code>, <code>=a&amp;b</code>, <code>=TEXT(value, format)</code>.</li>
+    <li><strong>Data Validation</strong> (Data → Data Validation): הגבלת מה שאפשר להקליד בתא.</li>
+  </ul>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>03_ניקוי_נתונים</code> — טבלת פוליסות "מלוכלכת" (רווחים מיותרים, אותיות לא אחידות, כפילויות). המשימה: לנקות ולהכין לעיבוד.</div>
+</section>
+
+<section id="ch4">
+  <h2>פרק 4 — VLOOKUP / INDEX-MATCH / XLOOKUP <span style="font-size:0.75em;color:var(--muted);">(הליבה של Acceptance)</span></h2>
+  <p>זה אולי הכלי <strong>הכי חשוב</strong> לתפקיד — השוואת קובץ נכנס מול טבלת ייחוס.</p>
+  <pre><code>=VLOOKUP(lookup_value, table_array, col_index_num, FALSE)</code></pre>
+  <p><code>FALSE</code> בסוף = התאמה מדויקת. מגבלה: מחפש רק מימין לעמודת החיפוש.</p>
+  <pre><code>=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))</code></pre>
+  <p>גמיש יותר — יכול לחפש גם "שמאלה", ולא נשבר כשמוסיפים עמודות.</p>
+  <pre><code>=XLOOKUP(lookup_value, lookup_array, return_array, "לא נמצא")</code></pre>
+  <p>הגרסה המודרנית — כוללת טיפול מובנה במקרה "לא נמצא".</p>
+  <div class="callout">שימוש טיפוסי בתפקיד: עמודת "האם קוד המוצר קיים בטבלת המוצרים הרשמית?" — כל <code>#N/A</code> הוא רשומה שנופלת ודורשת בדיקה.</div>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>04_VLOOKUP</code> — טבלת תביעות מול טבלת "קודי מוצר" רשמית. המשימה: להצליב, לזהות קודים לא קיימים ולמשוך שם סוכן.</div>
+</section>
+
+<section id="ch5">
+  <h2>פרק 5 — PivotTables (טבלאות ציר) לסיכום ודיווח</h2>
+  <ul>
+    <li>Insert → PivotTable, בוחרים טווח/טבלה.</li>
+    <li>גוררים שדה ל-<strong>Rows</strong>, שדה ל-<strong>Values</strong> (Sum או Count).</li>
+    <li>אפשר להוסיף <strong>Columns</strong> ו-<strong>Filters</strong>.</li>
+    <li><strong>Count</strong> מציג "כמה רשומות" — שימושי לדוח "כמה התקבלו/נדחו".</li>
+    <li>לחיצה ימנית → Value Field Settings לשינוי Sum/Count/Average.</li>
+    <li>ריענון: כפתור <strong>Refresh</strong> (Ctrl+Alt+F5).</li>
+  </ul>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>05_PivotTable</code> — בנו טבלת ציר שמראה סה"כ פרמיה וכמות פוליסות לפי סוכן ולפי חודש.</div>
+</section>
+
+<section id="ch6">
+  <h2>פרק 6 — Conditional Formatting לזיהוי חריגות</h2>
+  <ul>
+    <li>Home → Conditional Formatting.</li>
+    <li>כללים מובנים: Highlight Cells Rules, Top/Bottom, Data Bars, Color Scales.</li>
+    <li><strong>כלל מבוסס נוסחה</strong> (החזק ביותר) — New Rule → "Use a formula to determine which cells to format":
+      <ul>
+        <li><code>=COUNTIF($B$2:$B$500,B2)>1</code> — כפילויות</li>
+        <li><code>=ISBLANK(C2)</code> — שדה חסר</li>
+        <li><code>=B2&lt;DATE(2000,1,1)</code> — תאריך לא הגיוני</li>
+      </ul>
+    </li>
+  </ul>
+  <p>זה בדיוק סוג הבדיקות שתפקיד Data Acceptance עושה כל יום — הפיכת בעיות נתונים ל"נראות לעין" מיידית.</p>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>06_Conditional_Formatting</code> — סמנו אוטומטית שורות עם פרמיה שלילית, תאריך עתידי, ומספר פוליסה כפול.</div>
+</section>
+
+<section id="ch7">
+  <h2>פרק 7 — בדיקות תקינות מתקדמות (Data Quality Checklist)</h2>
+  <p>טכניקת עבודה מומלצת: להוסיף עמודת "בדיקה" לכל כלל, ועמודת "תוצאה" מסכמת.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>בדיקה</th><th>נוסחה לדוגמה</th></tr>
+    <tr><td>שדה חובה חסר</td><td><code>=IF(A2="","חסר","תקין")</code></td></tr>
+    <tr><td>כפילות מזהה</td><td><code>=IF(COUNTIF($A$2:$A$500,A2)>1,"כפול","ייחודי")</code></td></tr>
+    <tr><td>טווח תאריך הגיוני</td><td><code>=IF(OR(B2&lt;DATE(2015,1,1),B2&gt;TODAY()),"חריג","תקין")</code></td></tr>
+    <tr><td>ערך מספרי שלילי</td><td><code>=IF(C2&lt;0,"שלילי","תקין")</code></td></tr>
+    <tr><td>קיום בטבלת ייחוס</td><td><code>=IFERROR(VLOOKUP(D2,ProductTable,1,FALSE),"לא נמצא")</code></td></tr>
+  </table>
+  </div>
+  <div class="practice"><strong>תרגול:</strong> גיליון <code>07_Data_Quality</code> — בנו "עמודת שער" (Gate Column) אחת שמסכמת אם רשומה "קבילה" או "נדחית".</div>
+</section>
+
+<section id="ch8">
+  <h2>פרק 8 — Power Query (בסיס ETL באקסל)</h2>
+  <p>Power Query הוא בדיוק העולם של "ETL" (Extract-Transform-Load) בתוך Excel — רלוונטי מאוד לשם התפקיד.</p>
+  <ul>
+    <li>נמצא ב-Data → Get Data / From Table-Range.</li>
+    <li>מאפשר: ניקוי עמודות, שינוי סוגי נתונים, מיזוג (Merge) שני מקורות, חיבור (Append) קבצים, טעינה חוזרת אוטומטית.</li>
+    <li>כל שלב נשמר כ-"Applied Step" — שקוף וניתן לתיקון, בניגוד לנוסחה חד-פעמית.</li>
+    <li>אם מכירים Python/SQL — Power Query הוא ה"שפה החזותית" המקבילה לעיבוד נתונים, ושווה להזכיר בראיון.</li>
+  </ul>
+</section>
+
+<section id="ch9">
+  <h2>פרק 9 — מאקרו/VBA בסיסי (רשות)</h2>
+  <ul>
+    <li>Developer → Record Macro: מקליטים פעולה חוזרת ומקבלים קוד VBA אוטומטית.</li>
+    <li>שימושי לאוטומציה של תהליך קליטה חוזר (למשל "נקה + סמן חריגות + שמור כ-PDF" בלחיצת כפתור).</li>
+    <li>לא חובה לשליטה מלאה בתחילת התפקיד — אבל שווה להכיר, ו-<code>Alt+F11</code> פותח את עורך ה-VBA.</li>
+  </ul>
+</section>
+
+<section id="ch10">
+  <h2>פרק 10 — הכנה לראיון: מונחים ושאלות נפוצות</h2>
+  <p><strong>שאלות טכניות אפשריות:</strong></p>
+  <ol>
+    <li>"איך היית בודק אם קובץ Excel שקיבלת עומד בדרישות איכות בסיסיות?" → COUNTBLANK, COUNTIF לכפילויות, Conditional Formatting לחריגות, VLOOKUP מול טבלת ייחוס.</li>
+    <li>"מה ההבדל בין VLOOKUP ל-INDEX/MATCH?" → כיוון חיפוש, יציבות מול הוספת עמודות.</li>
+    <li>"איך היית מציג כמה רשומות נדחו והסיבות?" → PivotTable + עמודת "סיבת דחייה".</li>
+    <li>"מה זה Power Query ולמה הוא עדיף על נוסחאות בתהליך חוזר?" → תיעוד שלבים, ריענון קל, פחות שגיאות ידניות.</li>
+    <li>"איך היית מוודא שמספר פוליסה תקין?" → Data Validation + נוסחת בדיקת אורך/תבנית (<code>LEN</code>, <code>ISNUMBER</code>, <code>COUNTIF</code>).</li>
+  </ol>
+  <p><strong>מונחים כדאי להכיר:</strong> Data Validation, Reconciliation, Data Quality Gate, Deduplication, Source of Truth, Exception Report, Refresh/ETL.</p>
+</section>
+
+<section id="plan">
+  <h2>תוכנית לימוד מוצעת (2-3 שבועות)</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>שבוע</th><th>פרקים</th><th>מטרה</th></tr>
+    <tr><td>1</td><td>1–3</td><td>שליטה בממשק, נוסחאות בסיסיות, ניקוי נתונים</td></tr>
+    <tr><td>2</td><td>4–6</td><td>VLOOKUP/INDEX-MATCH, PivotTable, Conditional Formatting — הכי נבדקים בראיון</td></tr>
+    <tr><td>3</td><td>7–10</td><td>בדיקות איכות מקיפות, היכרות עם Power Query, הכנה לראיון</td></tr>
+  </table>
+  </div>
+  <p style="text-align:center; margin-top:20px;"><strong>בהצלחה בהכנה למשרה!</strong></p>
+</section>
+
+<footer>
+  <a class="back-top" href="#top">↑ חזרה לראש הדף</a>
+</footer>
+
+</div>
+</body>
+</html>
